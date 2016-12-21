@@ -1,0 +1,6 @@
+[submodule "Rasterize"]
+	path = Rasterize
+	url = https://github.com/umeshn/Rasterize.git
+[submodule "SupportVectorMachines"]
+	path = SupportVectorMachines
+	url = https://github.com/umeshn/SupportVectorMachines.git
