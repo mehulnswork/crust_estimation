@@ -6,11 +6,11 @@ Predicting the split image properties for Cruse estimation
 
 """
 
- #%%
+#%%
 
 
 
- #%%
+#%% Extracting parameters from each block for analysis
 
 def get_image_xyz_filenames(dir_splits, image_split_list, xyz_split_list, index):
     path_image = dir_splits + '/' + image_split_list[index]
@@ -34,7 +34,7 @@ def get_split_xyzlist(dir_splits):
     print('Number of txt files found:' + str(len(split_list)))
     return split_list    
 
- #%%
+#%%
 def get_block_stats(dir_splits, image_split_list, xyz_split_list, path_blockstats):
 
     file_blockstats = open(path_blockstats,'w')
@@ -58,7 +58,7 @@ def get_block_stats(dir_splits, image_split_list, xyz_split_list, path_blockstat
     file_blockstats.close()    
     return None
 
- #%%
+#%%
 
 def load_xyz(path_xyz):
     import numpy as np
@@ -84,7 +84,7 @@ def get_xyz_moments(points_x, points_y, points_z):
     std_z  = np.std(points_z)
     return(mean_z, std_z)
 
- #%%
+#%%
 
 def load_opencv_image(path_image):
     import cv2
@@ -141,16 +141,4 @@ if __name__ == '__main__':
     finally:
         print('Execution Completed')
 
-#%% Extracting parameters from each block for analysis
-
-
-
 #%% Unsupervised clustering of blocks into groups
-
-
-
-
-
-
-
-
