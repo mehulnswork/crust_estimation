@@ -37,7 +37,7 @@ def param_kmeans(param_matrix, num_clusters):
 	from sklearn.cluster import KMeans
 	kmeans_res = KMeans(n_clusters = num_clusters, random_state=0).fit(param_matrix)
 	
-	return kmeans_res
+	return kmeans_res.labels_
 
 def write_imagename_class(kmeans_res, path_namesfile, path_resultlist):
 
