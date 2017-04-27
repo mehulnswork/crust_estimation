@@ -4,6 +4,8 @@ Created on Wed Dec 21 11:34:49 2016
 Predicting the split image properties for Cruse estimation
 @author: Sangekar Mehul
 
+New library
+
 """
 
 #%%
