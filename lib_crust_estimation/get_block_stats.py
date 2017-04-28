@@ -1,9 +1,26 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Apr 27 12:17:23 2017
-
+For texture, they adopted illumination and rotation invariant, 
+uni- form local binary patterns (LBPs) and for colour, they computed 
+colour histograms in the normalised chromacity components (NCC) colour space
+The LBP texture descriptor operates on rela- tive changes in the greyscale intensity image.
 @author: oplab
 """
+
+def get_local_binary_pattern(points_x, points_y, points_z):
+#http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/
+
+
+
+    return rug_index
+
+def get_rugosity_index(points_x, points_y, points_z):
+
+
+
+
+    return rug_index
 
 def load_xyz(path_xyz):
     import numpy as np
@@ -91,6 +108,7 @@ def func(dir_splits,path_blockstats, path_namelist):
     
         avg_r, avg_g, avg_b, avg_h, avg_s, avg_v     = load_python_image(path_image)        
         points_x, points_y, points_z, mean_z, std_z  = load_xyz(path_xyz)
+
 
         file_blockstats.write('%d,%d,%d,' %(int(avg_r),int(avg_g),int(avg_b)))
         file_blockstats.write('%d,%d,%d,' %(int(avg_h),int(avg_s),int(avg_v)))

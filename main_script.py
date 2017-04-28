@@ -19,11 +19,12 @@ sys.path.append('/lib_m')
 if __name__ == '__main__':
     try:
 
+        sys.path.append('/home/oplab/sources/ply_to_geotiff')
+
         import lib_m as m
         import lib_crust_estimation as f
         import ply_to_geotiff as p2g  
         import sys
-        sys.path.append('/home/oplab/sources/ply_to_geotiff')
         
         startXbin    = 400
         endXbin      = 500
@@ -35,7 +36,7 @@ if __name__ == '__main__':
         
         dir_splits_full       = '/media/oplab/CRC BOSS-A DATA/cruiseData/NT15-03/Publish/splits_all'
         dir_splits_select     = '/home/oplab/cruiseData/NT15-03/HPD1780/Publish/splits_selected'
-        dir_splits_info           = '/home/oplab/cruiseData/NT15-03/HPD1780/Publish/splits_info'
+        dir_splits_info       = '/home/oplab/cruiseData/NT15-03/HPD1780/Publish/splits_info'
         path_namelist         = dir_splits_info + '/split_matched_image_xyz_names.csv'
         path_blockstats       = dir_splits_info + '/split_statistics.csv'
         path_resultlist       = dir_splits_info + '/splits_classfied_kmeans.csv'
