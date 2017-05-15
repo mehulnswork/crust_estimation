@@ -12,5 +12,6 @@ import classify_blocks
 import make_tiff_blocks_for_classes
 import geotiff_split_info
 import make_tiff_blocks_for_classes
+import classify_blocks_from_texture
 
 print('Importing crust estimation library')

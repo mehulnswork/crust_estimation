@@ -29,5 +29,7 @@ def func(dir_splits, path_namelist):
         file_namelist.write(str(path_image) + ',' + str(path_xyz) + '\n')
         
     file_namelist.close()
+
+    print('Matching images and xyz files completed\n')
     
     return None

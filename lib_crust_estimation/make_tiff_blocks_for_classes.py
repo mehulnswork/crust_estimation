@@ -30,6 +30,7 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
     from   osgeo import osr,gdal
     import glob
     import os
+    import sys
 
     src_ds = gdal.Open(input_depth)
     #RASTER_NO = 1   
@@ -74,7 +75,27 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
     xpos = []
     ypos = []
     
-    for i in range(len(img_type)):
+    num_images = len(img_type)
+
+    count_split = 0
+    check_perc  = 0
+    check_perc_minor  = 0    
+    
+    for i in range(num_images):
+        
+        count_split += 1            
+        curr_perc = float(i)/float(num_images) * 100.0        
+        
+        if curr_perc >= check_perc:
+            sys.stdout.write(str(int(check_perc)))
+            check_perc = check_perc + 10.0
+            sys.stdout.flush()
+    
+        if curr_perc >= check_perc_minor:
+            sys.stdout.write('.')
+            check_perc_minor = check_perc_minor + 2.0
+            sys.stdout.flush()
+            
         ds = img_name[i].split('/')
         d = re.findall(r'(\d+)',ds[-1])
         fname = ds[-1]

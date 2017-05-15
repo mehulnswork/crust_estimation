@@ -29,7 +29,7 @@ if __name__ == '__main__':
         startXbin    = 400
         endXbin      = 500
         startYbin    = 300
-        endYbin      = 600
+        endYbin      = 400
         num_clusters = 5
         split_size   = 1
                 
@@ -47,13 +47,19 @@ if __name__ == '__main__':
         dir_output_tiff       = '/home/oplab/cruiseData/NT15-03/HPD1780/Publish/full_classified_tiff'
         path_vrt              = dir_output_tiff + '/all_blocks.vrt'
         path_output_tiff      = dir_output_tiff + '/all_blocks.tif'
+        dir_training          = '/home/oplab/cruiseData/NT15-03/HPD1780/Publish/LBP/training'
 
-        m.dir.dir_make_if_none_list([dir_splits_select, dir_splits_info, dir_result_tiffs, dir_output_tiff])
+        #m.dir.dir_make_if_none_list([dir_splits_select, dir_splits_info, dir_result_tiffs, dir_output_tiff])
         
-        f.select_split_files_from_limits.func(dir_splits_full, dir_splits_select, startXbin,endXbin,startYbin,endYbin)        
-        f.find_same_image_xyz.func(dir_splits_select, path_namelist)        
-        f.get_block_stats.func(dir_splits_select, path_blockstats, path_namelist)
-        f.classify_blocks.func(path_blockstats, num_clusters, path_namelist, path_resultlist)
+        #f.select_split_files_from_limits.func(dir_splits_full, dir_splits_select, startXbin,endXbin,startYbin,endYbin)        
+        #f.find_same_image_xyz.func(dir_splits_select, path_namelist)        
+        
+        
+        #f.get_block_stats.func(dir_splits_select, path_blockstats, path_namelist)
+        #f.classify_blocks.func(path_blockstats, num_clusters, path_namelist, path_resultlist)
+        
+        #f.classify_blocks_from_texture.func(dir_training, dir_splits_select, path_resultlist)
+    
         f.geotiff_split_info.func(path_depth_tiff,split_size,path_tiff_splits_info)
         f.make_tiff_blocks_for_classes.func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, path_depth_tiff)
 

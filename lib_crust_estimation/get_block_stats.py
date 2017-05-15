@@ -8,12 +8,29 @@ The LBP texture descriptor operates on rela- tive changes in the greyscale inten
 @author: oplab
 """
 
-def get_local_binary_pattern(points_x, points_y, points_z):
+def get_local_binary_pattern(path_image):
 #http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/
+    import cv2
+    from skimage import feature
+    import numpy as np
+
+    num_points = 24
+    radius     = 8
+    image      = cv2.imread(path_image)
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    lbp        = feature.local_binary_pattern(image_gray, num_points, radius, method="uniform")
+
+    (hist, _) = np.histogram(lbp.ravel(), bins=np.arange(0, num_points + 3), range=(0, num_points + 2))
+
+    eps=1e-7
+    # normalize the histogram
+    hist = hist.astype("float")
+    hist /= (hist.sum() + eps)
+    print hist
+    raw_input()
 
 
-
-    return rug_index
+    return hist
 
 def get_rugosity_index(points_x, points_y, points_z):
 
@@ -21,6 +38,8 @@ def get_rugosity_index(points_x, points_y, points_z):
 
 
     return rug_index
+
+    
 
 def load_xyz(path_xyz):
     import numpy as np
@@ -96,16 +115,17 @@ def func(dir_splits,path_blockstats, path_namelist):
     file_blockstats = open(path_blockstats,'w')
     file_blockstats.write('red, green, blue, hue, satur, inten, mean z, std z\n')
 
-    num_files = len(path_image_list)
-    
-    print('Numnber of files found ' + str(num_files) + '\n')
-
+    num_files = len(path_image_list)    
 
     for index in range(num_files):
 
+
         path_image = path_image_list[index].strip()
         path_xyz   = path_xyz_list[index].strip()
-    
+
+        print('Extracting parameters for file > ' + str(path_image))   
+
+        get_local_binary_pattern(path_image)         
         avg_r, avg_g, avg_b, avg_h, avg_s, avg_v     = load_python_image(path_image)        
         points_x, points_y, points_z, mean_z, std_z  = load_xyz(path_xyz)
 

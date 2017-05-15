@@ -4,6 +4,7 @@ def func(input_geotiff,split_size,path_tiff_splits_info):
     from osgeo import gdal
     gdal.UseExceptions()
     import time
+    import sys    
     
     TIME_START = time.time()    
     src_ds = gdal.Open(input_geotiff)
@@ -71,14 +72,31 @@ def func(input_geotiff,split_size,path_tiff_splits_info):
     TOTAL_SPLITS = len(range(XMAPSTART,XMAPEND,split_size)) * len(range(YMAPSTART,YMAPEND,split_size))
 
     count_split = 0
+    check_perc  = 0
+    check_perc_minor  = 0
+    
     
     file_tiff_info = open(path_tiff_splits_info,'w')
+    
+    print('Getting Geotiff splits info\n')
     
     for xl in range(XMAPSTART,XMAPEND,split_size):
         for ym in range(YMAPSTART,YMAPEND,split_size): 
 
-            count_split += 1
+            count_split += 1            
+            curr_perc = float(count_split)/float(TOTAL_SPLITS) * 100.0
+            
+            if curr_perc >= check_perc:
+                sys.stdout.write(str(int(check_perc)))
+                check_perc = check_perc + 10.0
+                sys.stdout.flush()
 
+            if curr_perc >= check_perc_minor:
+                sys.stdout.write('.')
+                check_perc_minor = check_perc_minor + 2.0
+                sys.stdout.flush()
+            
+                
             X1_START = 0
             X1_END   = xl      
             X1BINEND = int(( X1_END - X1_START)/abs(XRES))   
@@ -111,7 +129,7 @@ def func(input_geotiff,split_size,path_tiff_splits_info):
                 
     file_tiff_info.close()
     TIME_JPEG = time.time()
-    print 'Time required >> ' + str(TIME_JPEG - TIME_GEOTIFF) + ' seconds'
+    print '>> Time required is ' + str(TIME_JPEG - TIME_GEOTIFF) + ' seconds'
    
    
     return None  

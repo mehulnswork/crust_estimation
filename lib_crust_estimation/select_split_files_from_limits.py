@@ -16,13 +16,13 @@ def func(dir_splits_full, dir_splits_select, startXbin,endXbin,startYbin,endYbin
     for f in files:
         os.remove(f)
 
-    print('Files deleted.. now waiting')
+    print('Deleting files from > ' + str(dir_splits_select))
     
     dir_list = os.listdir(dir_splits_full)
 
     total_files = 0
 
-    print('Copying files...')    
+    print('Copying files from > ' + str(dir_splits_full))    
 
     for i in range(startXbin,endXbin + 1):
         x_search_string = 'X' + str(i) + '-'
@@ -41,6 +41,6 @@ def func(dir_splits_full, dir_splits_select, startXbin,endXbin,startYbin,endYbin
 
                 shutil.copy(path_source, path_dest)
 
-    print('Total number of files:' + str(total_files))        
+    print('Total number of files copied >' + str(total_files))        
     
     return None
