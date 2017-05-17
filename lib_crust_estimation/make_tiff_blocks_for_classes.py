@@ -114,16 +114,17 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
         xpos = float(d[5])
         ypos = float(d[6])
         
-        if img_type[i] == 0:
-            points = np.full((sizeY,sizeX), 1.0, dtype=np.float32)
         if img_type[i] == 1:
-            points = np.full((sizeY,sizeX), 2.0, dtype=np.float32)
+            #points = np.full((sizeY,sizeX), 0.0, dtype=np.float32)
+            points = np.full((sizeY,sizeX), 1, dtype=np.int32)
         if img_type[i] == 2:
-            points = np.full((sizeY,sizeX), 3.0, dtype=np.float32)
+            points = np.full((sizeY,sizeX), 2, dtype=np.int32)
         if img_type[i] == 3:
-            points = np.full((sizeY,sizeX), 4.0, dtype=np.float32)
+            points = np.full((sizeY,sizeX), 3, dtype=np.int32)
         if img_type[i] == 4:
-            points = np.full((sizeY,sizeX), 5.0, dtype=np.float32)
+            points = np.full((sizeY,sizeX), 4, dtype=np.int32)
+        if img_type[i] == 5:
+            points = np.full((sizeY,sizeX), 5, dtype=np.int32)
     
         ew_upper_left = ypos
         ns_upper_left = xpos   # x_min & y_max are like the "top left" corner.
@@ -131,10 +132,11 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
         driver = gdal.GetDriverByName('GTiff')
         gdal_mosaictiff = driver.Create(path_output_tiff, sizeY, sizeX, 1, gdal.GDT_Byte, options = ['COMPRESS=DEFLATE'])
         gdal_mosaictiff.SetGeoTransform([ew_upper_left, wepixelres, 0, ns_upper_left, 0, nspixelres])  
-    
+        
         srs = osr.SpatialReference()
         srs.SetWellKnownGeogCS('WGS84')
         srs.SetTM(ns_origin_deg,ew_origin_deg , 1, 0, 0)
+        
         gdal_mosaictiff.SetProjection(srs.ExportToWkt())
     
         intenbandr = gdal_mosaictiff.GetRasterBand(1)
