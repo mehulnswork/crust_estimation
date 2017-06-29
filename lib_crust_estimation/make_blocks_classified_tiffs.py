@@ -33,19 +33,11 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
     import sys
 
     src_ds = gdal.Open(input_depth)
-    #RASTER_NO = 1   
-        
-    #srcband      = src_ds.GetRasterBand(RASTER_NO)
-    #width        = src_ds.RasterXSize
-    #height       = src_ds.RasterYSize
-    #bands        = src_ds.RasterCount
+
     driver       = src_ds.GetDriver().LongName
     geotransform = src_ds.GetGeoTransform()
-    #top_leftY    = geotransform[0]
-    #top_leftX    = geotransform[3]
     wepixelres   = geotransform[1]
     nspixelres   = geotransform[5]
-    #bandtype     = gdal.GetDataTypeName(srcband.DataType)
     ew_origin_deg,ns_origin_deg      = gdalinfo_latlon(input_depth) 
 
     files = glob.glob(dir_result_tiffs + '/' + '*')
@@ -99,8 +91,7 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
         ds = img_name[i].split('/')
         d = re.findall(r'(\d+)',ds[-1])
         fname = ds[-1]
-        #startX = int(d[4])
-        #startY = int(d[6])
+
         sizeX = int(d[5])
         sizeY = int(d[7])     
     
@@ -114,17 +105,7 @@ def func(path_resultlist, dir_result_tiffs, path_tiff_splits_info, input_depth):
         xpos = float(d[5])
         ypos = float(d[6])
         
-        if img_type[i] == 1:
-            #points = np.full((sizeY,sizeX), 0.0, dtype=np.float32)
-            points = np.full((sizeY,sizeX), 1, dtype=np.int32)
-        if img_type[i] == 2:
-            points = np.full((sizeY,sizeX), 2, dtype=np.int32)
-        if img_type[i] == 3:
-            points = np.full((sizeY,sizeX), 3, dtype=np.int32)
-        if img_type[i] == 4:
-            points = np.full((sizeY,sizeX), 4, dtype=np.int32)
-        if img_type[i] == 5:
-            points = np.full((sizeY,sizeX), 5, dtype=np.int32)
+        points = np.full((sizeY,sizeX),  img_type[i], dtype=np.int32)
     
         ew_upper_left = ypos
         ns_upper_left = xpos   # x_min & y_max are like the "top left" corner.

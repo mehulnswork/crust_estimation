@@ -27,7 +27,7 @@ class LocalBinaryPatterns:
         return hist
         
 
-def func(dir_training, dir_splits_select, path_resultlist):
+def func(dir_training, dir_splits_select, path_resultlist, path_init):
     
     print('Classificaton of texture\n')
 
@@ -37,7 +37,20 @@ def func(dir_training, dir_splits_select, path_resultlist):
     import os
     import sys
 
-    desc = LocalBinaryPatterns(24, 8)
+    array_colors = []
+    array_values = []
+    array_labels = []
+
+       
+    file_init = open(path_init,'r')
+    for line in file_init.readlines():
+        d = line.split(',')
+        array_labels.append(d[0])
+        array_values.append(int(d[1]))        
+        array_colors.append(d[2].strip())
+    file_init.close()
+
+    desc = LocalBinaryPatterns(64, 8)
     data = []
     labels = []
 
@@ -67,7 +80,10 @@ def func(dir_training, dir_splits_select, path_resultlist):
 
     img_count = 0
     check_perc  = 0
-    check_perc_minor  = 0    
+    check_perc_minor = 0    
+    
+    #list_training = os.listdir(dir_training)
+    #names_classes = list_training
     
     for curr_img in list_images:
         
@@ -95,22 +111,11 @@ def func(dir_training, dir_splits_select, path_resultlist):
         prediction = model.predict(hist.reshape(1, -1))[0]
                 
          # display the image and the prediction
-          
-        if prediction == 'white':
-            class_num = 1
-       
-        if prediction == 'big_boulders':
-            class_num = 2           
+        class_index = int(array_labels.index(prediction))
+        class_num = array_values[class_index]
     
-        if prediction == 'crusts':
-            class_num = 3
-
-        if prediction == 'small_boulders':
-            class_num = 4
-
-        if prediction == 'fine_crust':
-            class_num = 5
-            
-        file_resultfile.write('%s,%d\n' %(imagePath, class_num))
+        file_resultfile.write('%s,%d,%s\n' %(imagePath, class_num, prediction))
         
-    file_resultfile.close()         
+    file_resultfile.close()
+
+    return None         

@@ -43,4 +43,4 @@ def func(dir_splits_full, dir_splits_select, startXbin,endXbin,startYbin,endYbin
 
     print('Total number of files copied >' + str(total_files))        
     
-    return None
+    return total_files
