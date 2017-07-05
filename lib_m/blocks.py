@@ -5,8 +5,7 @@ Created on Wed May 17 11:54:46 2017
 @author: oplab
 """
 
-def split_map_into_blocks(full_startXbin, full_endXbin, full_startYbin, full_endYbin, block_Xsize, block_Ysize):
-    
+def get_split_locations(full_startXbin, full_endXbin, full_startYbin, full_endYbin, block_Xsize, block_Ysize):
     
     start_Xbins = []
     end_Xbins   = []

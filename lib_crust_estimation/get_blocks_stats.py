@@ -34,8 +34,12 @@ def get_local_binary_pattern(path_image):
 
 def get_rugosity_index(points_x, points_y, points_z):
 
+    min_x = min(points_x)
+    max_x = max(points_x)
+    min_y = min(points_y)
+    max_y = max(points_y)
 
-
+    area_surface = (max_x - min_x) * (max_y - min_y)
 
     return rug_index
 

@@ -8,9 +8,6 @@ New library
 
 """
 
-#%%
-
-
 import sys
 import argparse
 sys.path.append('/lib_crust_estimation')
@@ -77,7 +74,7 @@ if __name__ == '__main__':
 
         m.dir.dir_make_if_none_list([dir_processing_block, dir_splits_block, dir_splits_info, dir_restiffs_block, dir_output_tiff])
         
-        total_files = f.make_blocks_between_XY_limits.func(dir_splits_full, dir_splits_block, startXbin, endXbin, startYbin, endYbin)        
+        total_files = f.make_blocks_between_XY_limits.func(dir_splits_full, dir_splits_block, startXbin, endXbin, startYbin, endYbin)
 
         if total_files > 0:
             
